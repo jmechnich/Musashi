@@ -1,18 +1,21 @@
 EXENAME          = sim
 
-OSD_DOS          = osd_dos.c
+ifdef SystemRoot
+EXE     = .exe
+EXEPATH = .\\
+OSD_C   = osd_dos.c
+else
+EXEPATH    = ./
+OSD_C      = osd_linux.c
+MUSASHIDIR = ../
+endif
 
-OSDFILES         = $(OSD_DOS)
+OSDFILES         = $(OSD_C)
 MAINFILES        = sim.c
 MUSASHIFILES     = m68kcpu.c m68kdasm.c
 MUSASHIGENCFILES = m68kops.c m68kopac.c m68kopdm.c m68kopnz.c
 MUSASHIGENHFILES = m68kops.h
 MUSASHIGENERATOR = m68kmake
-
-EXE = .exe
-EXEPATH = .\\
-# EXE =
-# EXEPATH = ./
 
 .CFILES   = $(MAINFILES) $(OSDFILES) $(MUSASHIFILES) $(MUSASHIGENCFILES)
 .OFILES   = $(.CFILES:%.c=%.o)
